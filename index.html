@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Search</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 72px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: -2px;
+        }
+
+        .search-box {
+            background: white;
+            border-radius: 50px;
+            padding: 8px 20px;
+            display: flex;
+            align-items: center;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transition: box-shadow 0.3s;
+        }
+
+        .search-box:focus-within {
+            box-shadow: 0 6px 30px rgba(0,0,0,0.3);
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 15px 20px;
+            font-size: 16px;
+            background: transparent;
+        }
+
+        .search-box button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            color: #667eea;
+        }
+
+        .search-box button:hover {
+            opacity: 0.7;
+        }
+
+        .tagline {
+            color: white;
+            font-size: 16px;
+            margin-top: 20px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">Nexus</div>
+        <form action="results.html" method="GET">
+            <div class="search-box">
+                <input type="text" name="q" placeholder="Search the web..." required autofocus>
+                <button type="submit">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+        </form>
+        <p class="tagline">Discover what matters</p>
+    </div>
+</body>
+</html>

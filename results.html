@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - Nexus</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f8f9fa;
+            color: #202124;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+
+        .search-box {
+            background: white;
+            border-radius: 25px;
+            padding: 5px 15px;
+            display: flex;
+            align-items: center;
+            flex: 1;
+            max-width: 600px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            flex: 1;
+            padding: 12px 15px;
+            font-size: 16px;
+            background: transparent;
+        }
+
+        .search-box button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            color: #667eea;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .search-info {
+            color: #70757a;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .search-query {
+            color: #202124;
+            font-weight: 600;
+        }
+
+        .result {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s;
+        }
+
+        .result:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .result-url {
+            color: #70757a;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .result-title {
+            color: #1a0dab;
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .result-title:hover {
+            text-decoration: underline;
+        }
+
+        .result-description {
+            color: #4d5156;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .no-results-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .no-results-text {
+            color: #70757a;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <a href="index.html" class="logo">Nexus</a>
+            <form action="results.html" method="GET">
+                <div class="search-box">
+                    <input type="text" name="q" id="searchInput" placeholder="Search the web...">
+                    <button type="submit">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="search-info">
+            Search results for: <span class="search-query" id="queryDisplay"></span>
+        </div>
+
+        <div id="resultsContainer">
+            <!-- Results will be inserted here -->
+        </div>
+    </div>
+
+    <script>
+        // Get the search query from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const query = urlParams.get('q');
+
+        // Display the query
+        if (query) {
+            document.getElementById('queryDisplay').textContent = query;
+            document.getElementById('searchInput').value = query;
+
+            // Sample results based on the search query
+            const results = [
+                {
+                    url: 'https://en.wikipedia.org/wiki/' + encodeURIComponent(query),
+                    title: `${query} - Wikipedia`,
+                    description: `The free encyclopedia entry for ${query}. Historical context, definitions, and detailed information about ${query} from various perspectives.`
+                },
+                {
+                    url: 'https://www.reddit.com/search/?q=' + encodeURIComponent(query),
+                    title: `${query} discussions on Reddit`,
+                    description: `Join the conversation about ${query} on Reddit. Real user experiences, questions, and community insights about ${query}.`
+                },
+                {
+                    url: 'https://www.youtube.com/results?search_query=' + encodeURIComponent(query),
+                    title: `${query} - YouTube Videos`,
+                    description: `Watch videos about ${query} on YouTube. Tutorials, reviews, and visual content to help you understand ${query} better.`
+                },
+                {
+                    url: 'https://news.google.com/search?q=' + encodeURIComponent(query),
+                    title: `Latest News About ${query}`,
+                    description: `Stay updated with the most recent news and developments related to ${query}. Breaking stories and in-depth analysis from trusted sources.`
+                },
+                {
+                    url: 'https://github.com/search?q=' + encodeURIComponent(query),
+                    title: `${query} on GitHub`,
+                    description: `Find open source projects, code repositories, and developer resources related to ${query} on GitHub.`
+                },
+                {
+                    url: 'https://stackoverflow.com/search?q=' + encodeURIComponent(query),
+                    title: `${query} - Stack Overflow`,
+                    description: `Technical questions and expert answers about ${query}. Find solutions and best practices from the developer community.`
+                },
+                {
+                    url: 'https://twitter.com/search?q=' + encodeURIComponent(query),
+                    title: `${query} on Twitter/X`,
+                    description: `See what people are saying about ${query} on social media. Real-time updates, trends, and discussions.`
+                }
+            ];
+
+            // Display results
+            const container = document.getElementById('resultsContainer');
+            results.forEach(result => {
+                const resultDiv = document.createElement('div');
+                resultDiv.className = 'result';
+                resultDiv.innerHTML = `
+                    <div class="result-url">${result.url}</div>
+                    <a href="${result.url}" class="result-title">${result.title}</a>
+                    <div class="result-description">${result.description}</div>
+                `;
+                container.appendChild(resultDiv);
+            });
+        } else {
+            // No query provided
+            const container = document.getElementById('resultsContainer');
+            container.innerHTML = `
+                <div class="no-results">
+                    <div class="no-results-icon">🔍</div>
+                    <div class="no-results-text">Enter a search query to see results</div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
